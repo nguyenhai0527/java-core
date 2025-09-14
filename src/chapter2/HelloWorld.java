@@ -1,19 +1,45 @@
 package chapter2;
 
+import java.util.Arrays;
+import java.util.Scanner;
+
 public class HelloWorld {
     public static void main(String[] args) {
-        byte age = 25;
-        float height = 5.9f;
-        char initial = 'J';
-        boolean isStudent = true;
+        System.out.println("Student score!");
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter name of students: ");
+        String input = scanner.nextLine();
 
-        System.out.println("Hello, World! and welcome to Java programming.");
-        System.out.println("This is my first Java program.");
-        System.out.println("I am excited to learn more about Java.");
-        System.out.println("I am " + age + " years old.");
-        System.out.println("I am graduating in 2025.");
-        System.out.println("My height is " + height + " feet.");
-        System.out.println("My first name starts with the letter " + initial + ".");
-        System.out.println("Am I a student? " + isStudent);
+        String[] names = input.split(", ");
+        int[] scores = new int[names.length];
+        int totalScore = 0;
+        double averageScore;
+        int maxScore = Integer.MIN_VALUE;
+        int minScore = Integer.MAX_VALUE;
+        String maxScoreStudent = "";
+        String minScoreStudent = "";
+
+        for (int i = 0; i < names.length; i++) {
+            System.out.print("Enter score for " + names[i] + ": ");
+            scores[i] = scanner.nextInt();
+            totalScore += scores[i];
+
+            if (scores[i] > maxScore) {
+                maxScore = scores[i];
+                maxScoreStudent = names[i];
+            }
+            if (scores[i] < minScore) {
+                minScore = scores[i];
+                minScoreStudent = names[i];
+            }
+        }
+        averageScore = (double) totalScore / names.length;
+
+        System.out.println("Total score: " + totalScore);
+        System.out.printf("Average score: %.2f%n", averageScore);
+        System.out.println("Highest score: " + maxScore + " by " + maxScoreStudent);
+        System.out.println("Lowest score: " + minScore + " by " + minScoreStudent);
+        System.out.println("All scores: " + Arrays.toString(scores));
+        scanner.close();
     }
 }
